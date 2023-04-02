@@ -90,6 +90,39 @@ const RootQueryType = new GraphQLObjectType({
             var course = new CourseModel(args);
             return course.save();
           }
+        },
+        deleteCourse: {
+            type: CourseType,
+            description: 'Delete a Course',
+            args: {
+                id: {type: GraphQLNonNull(GraphQLString)}
+            },
+            resolve: async(parent, args)=>{
+                const removedCourse = await CourseModel.findByIdAndRemove(args.id)
+                if(!removedCourse){
+                    throw new Error('error')
+                }
+                return removedCourse;
+            }
+        },
+        updateCourse: {
+            type: CourseType,
+            description: 'Update a Course',
+            args: {
+                id: {type: GraphQLNonNull(GraphQLString)},
+                courseCode: { type: GraphQLNonNull(GraphQLString) },
+                courseName: { type: GraphQLString },
+                section: { type: GraphQLString },
+                semester: { type: GraphQLString }  
+            },
+            resolve: async(parent, args)=>{
+                const updatedCourse = await 
+                CourseModel.findByIdAndUpdate(args.id,args);
+                if(!updatedCourse){
+                    throw new Error('error')
+                }
+                return updatedCourse;
+            }
         }
       })
     })
