@@ -1,21 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import GettingGraphQLData from './components/GettingGraphQLData';
 import reportWebVitals from './reportWebVitals';
-import {ApolloProvider} from "react-apollo";
-import ApolloClient from "apollo-boost";
+import App from './App';
 
-const client = new ApolloClient({
-  uri:"http://localhost:3001/courses"
-});
-
-const root= ReactDOM.createRoot(document.getElementById("root"));
+const root= ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <ApolloProvider client={client}>
-     <GettingGraphQLData />
-    </ApolloProvider>
+     <App />
   </React.StrictMode>
 );
 

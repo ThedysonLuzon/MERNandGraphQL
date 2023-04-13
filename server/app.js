@@ -1,22 +1,27 @@
 require('dotenv').config();
 const express = require("express");
-const expressGraphQL = require("express-graphql").graphqlHTTP;
+const { graphqlHTTP } = require('express-graphql');
+const schema = require('./schema/schema');
 const connectDB = require('./config/db');
-const schema = require('./graphql/resolvers/index');
-var app = express();
-var cors = require("cors");
+const port = process.env.PORT || 3001;
+const cors = require("cors");
+
+
+const app = express();
+
+
+//db connect
+connectDB();   
 
 app.use(cors());
 
-//db connect
-connectDB();    
 
 app.use(express.json())
-app.use('/courses', expressGraphQL({
-schema: schema,
-graphiql: true
+app.use('/courses', graphqlHTTP({
+  schema,
+  graphiql: true
 }));
 
 
-app.listen(3001, () => console.log('Server Started at http://localhost:3001/courses'));
+app.listen(port, () => console.log(`Server Started at http://localhost:${port}/courses `));
 

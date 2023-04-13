@@ -1,11 +1,18 @@
 const mongoose = require('mongoose');
 
-// create Course model
-const CourseModel = mongoose.model("course",{
-    courseCode: String,
-    courseName: String,
-    section: String,
-    semester: String
+const courseSchema = new mongoose.Schema({
+    courseCode: {
+        type: String,
+    },
+    courseName: {
+        type: String,
+    },
+    section: {
+        type: String,
+    },
+    semester: {
+        type: String,
+    },
 });
 
-module.exports = mongoose.model('Course', CourseSchema);
+module.exports = mongoose.model('Course', courseSchema);
